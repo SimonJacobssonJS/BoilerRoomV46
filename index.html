@@ -1,9 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+  <html lang="sv">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Anteckningssystem</title>
+      <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+      <div class="container">
+        <h1>Anteckningar</h1>
+        <form id="noteForm">
+          <label for="title">Titel:</label>
+          <input
+            type="text"
+            id="title"
+            placeholder="Skriv en titel för din anteckning." />
+
+          <label for="content">Anteckning:</label>
+          <textarea
+            id="content"
+            rows="5"
+            placeholder="Skriv dina anteckningar här."></textarea>
+
+          <button type="saveNote">Spara anteckning</button>
+        </form>
+        <button id="clearAll">Ta bort alla anteckningar</button>
+        <div id="notesContainer"></div>
+      </div>
+      <script src="script.js"></script>
+    </body>
+  </html>
 </html>
