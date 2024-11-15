@@ -1,36 +1,34 @@
+//låter av hemsidan för att ladda klart så inga DOM element körs innan de ska
 document.addEventListener("DOMContentLoaded", () => {
+  const formForNotes = document.getElementById("formForNotes");
   const titleText = document.getElementById("titleText");
   const noteForm = document.getElementById("noteForm");
+  const notesContainer = document.querySelector(".notesContainer");
   const saveButton = document.getElementById("saveButton");
+  const clearButton = document.getElementById("clearButton");
 
-  function display() {
-    localStorage.setItem("saveNote", noteForm.value, titleText.value);
-    console.log(localStorage.getItem("saveNote"));
+  //const notes = JSON.parse(localStorage.getItem(".notes")) || [];
 
-    //   h2.innerhtml = input.value;
-    //   h2.innerhtml = localStorage.getItem("saveTitle");
-  }
+  const addNotes = (titleText, noteForm) => {};
 
-  //låter av hemsidan för att ladda klart så inga DOM element körs innan de ska
-  //   const titleInput = document.getElementById("titleInput");
-  //   const contentInput = document.getElementById("contentInput");
-  //   const saveNote = document.querySelector("buttonSave");
+  const createNotes = ({ title, noteForm }) => {
+    const noteCreateDiv = document.createElement("div");
+    const titleh2 = document.createElement("h2");
+    const noteParagraph = document.createElement("p");
 
-  //   //   let title = titleInput.trim();
-  //   //   let content = contentInput.trime(); //oavsett value (siffra eller bokstav så skalar den av överbliven whitespace)
-  //   // document.addEventListener("click", saveNote);
-  //   let buttonSave = document.getElementById("buttonSave");
+    createNotes.innerText = addNotes;
 
-  //   localStorage.setItem("buttonSave", input.value);
-  //   h2.innerHTML = localStorage.getItem("buttonSave");
-  //   console.log(buttonSave);
+    noteCreateDiv.append(titleh2, noteParagraph);
+    notesContainer.appendChild(notesContainer);
 
-  //   //   {
-  //   //     if (!title || !content = null){
-  //   //     alert("Du måste fylla i både titel och anteckningar för att fortsätta");}
-  //   //     else{
-  //   //         return;
-  //   //     };
+    const notes = [];
+    notes.forEach(noteCreateDiv);
+    noteForm.onsubmit = (e) => {
+      e.preventDefault();
+    };
+  };
+  //notesContainer.push({ createNotes });
 
-  //   //   });
+  localStorage.setItem("createNotes", JSON.stringify(notesContainer));
+  return { titleText, noteForm };
 });

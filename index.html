@@ -7,18 +7,26 @@
       <title>AnteckningsBlocket</title>
     </head>
     <body>
-      <h1>Anteckningar</h1>
+      <form id="formForNotes">
+        <h1>Anteckningar</h1>
 
-      <p class="information"> här kan du spara, ta bort och rensa dina anteckningar</p>
+        <input
+          type="text"
+          name="title"
+          id="titleText"
+          placeholder="Skriv in din titel här!" />
 
-      <input id="titleText" type="text" placeholder="Skriv in din titel här!" /><br></br>
+        <input
+          type="text"
+          name="note"
+          id="noteForm"
+          placeholder="Skriv dina anteckningar här." />
 
-      <textarea id="noteForm" rows="5" placeholder="Skriv dina anteckningar här..."></textarea>/><br></br>
+        <button id="saveButton">Spara din anteckning</button>
 
-      <button id="saveButtom">Spara din anteckning</button>
-
-      <button id="clearButtom">Rensa dina anteckningar</button>
-      <h2></h2>
+        <button id="clearButton">Rensa dina anteckningar</button>
+      </form>
+      <div class="notesContainer"></div>
 
       <script src="script.js"></script>
     </body>
