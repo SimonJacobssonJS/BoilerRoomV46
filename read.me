@@ -1,0 +1,34 @@
+Boiler room uppgift v46
+
+Grundläggande Funktionalitet
+1. Skapa Anteckningar
+Lägg till ett formulär där användaren kan skriva en ny anteckning.
+Formuläret ska innehålla:
+Ett textfält för anteckningens titel.
+Ett textfält för anteckningens innehåll.
+En knapp för att spara anteckningen.
+Validera att titel och innehåll inte är tomma.
+2. Spara Anteckningar i LocalStorage
+När användaren sparar en anteckning ska den lagras i LocalStorage.
+Använd JSON.stringify() för att konvertera anteckningsobjektet till en JSON-sträng innan det lagras.
+Varje anteckning kan ha egenskaper som:
+id: unikt identifierande nummer.
+title: titeln för anteckningen.
+content: innehållet i anteckningen.
+timestamp: datum och tid då anteckningen skapades.
+3. Visa Sparade Anteckningar
+Visa en lista över alla sparade anteckningar på sidan.
+Använd JavaScript för att läsa in data från LocalStorage och dynamiskt skapa HTML-element för varje anteckning.
+Visa anteckningens innehåll och eventuell annan relevant information (t.ex. datum).
+4. Ta Bort Anteckningar
+Implementera funktionalitet för att ta bort enskilda anteckningar.
+Varje anteckning i listan ska ha en "Ta bort"-knapp.
+När användaren klickar på "Ta bort" ska anteckningen tas bort från LocalStorage och listan uppdateras.
+Lägg till en funktion eller knapp som låter användaren ta bort alla anteckningar.
+5. Hantera Data i JavaScript
+Använd JavaScript-objekt och arrayer för att hantera anteckningsdata.
+Förstå skillnaden mellan JSON-data och JavaScript-objekt.
+Validering och Felhantering
+Validera att användaren inte kan spara tomma anteckningar.
+Hantera fall där data i LocalStorage är korrupt eller ogiltig.
+Visa användarvänliga meddelanden om något går fel eller om en begränsning nås.
