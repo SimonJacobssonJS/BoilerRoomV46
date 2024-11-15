@@ -4,30 +4,22 @@
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Anteckningssystem</title>
-      <link rel="stylesheet" href="style.css" />
+      <title>AnteckningsBlocket</title>
     </head>
     <body>
-      <div class="container">
-        <h1>Anteckningar</h1>
-        <form id="noteForm">
-          <label for="title">Titel:</label>
-          <input
-            type="text"
-            id="title"
-            placeholder="Skriv en titel för din anteckning." />
+      <h1>Anteckningar</h1>
 
-          <label for="content">Anteckning:</label>
-          <textarea
-            id="content"
-            rows="5"
-            placeholder="Skriv dina anteckningar här."></textarea>
+      <p class="information"> här kan du spara, ta bort och rensa dina anteckningar</p>
 
-          <button type="saveNote">Spara anteckning</button>
-        </form>
-        <button id="clearAll">Ta bort alla anteckningar</button>
-        <div id="notesContainer"></div>
-      </div>
+      <input id="titleText" type="text" placeholder="Skriv in din titel här!" /><br></br>
+
+      <textarea id="noteForm" rows="5" placeholder="Skriv dina anteckningar här..."></textarea>/><br></br>
+
+      <button id="saveButtom">Spara din anteckning</button>
+
+      <button id="clearButtom">Rensa dina anteckningar</button>
+      <h2></h2>
+
       <script src="script.js"></script>
     </body>
   </html>
