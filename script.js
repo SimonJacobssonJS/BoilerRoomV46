@@ -1,4 +1,3 @@
-//låter av hemsidan för att ladda klart så inga DOM element körs innan de ska
 document.addEventListener("DOMContentLoaded", () => {
   const formForNotes = document.getElementById("formForNotes");
   const titleText = document.getElementById("titleText");
@@ -7,40 +6,55 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveButton = document.getElementById("saveButton");
   const clearButton = document.getElementById("clearButton");
 
-  const notes = JSON.parse(localStorage.getItem(".notes")) || [];
+  // Ladda tidigare anteckningar från localStorage
+  const notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-  const addNotes = (titleText, noteForm) => {
-    notes.push({
-      titleText,
-      noteForm,
-    });
-    return { titleText, noteForm };
+  // Funktion för att lägga till en anteckning till listan
+  const addNotes = (title, note) => {
+    const newNote = { title, note };
+    notes.push(newNote);
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    return newNote;
   };
 
-  const createNotes = ({ titleText, noteForm }) => {
+  // Funktion för att skapa en anteckning i DOM
+  const createNotes = ({ title, note }) => {
     const noteCreateDiv = document.createElement("div");
-    const titleH2 = document.createElement("h2");
-    const noteParagraph = document.createElement("p");
+    noteCreateDiv.classList.add("note");
 
-    titleH2.innerText = addNotes;
-    noteParagraph.innerText = addNotes;
+    const titleH2 = document.createElement("h2");
+    titleH2.innerText = title;
+
+    const noteParagraph = document.createElement("p");
+    noteParagraph.innerText = note;
 
     noteCreateDiv.append(titleH2, noteParagraph);
-    notesContainer.appendChild(notesContainer);
-  };
-  notes.forEach(noteCreateDiv);
-  noteForm.onsubmit = (e) => {
-    e.preventDefault();
-
-    const newNotes = addNotes(titleText.value, noteForm.value);
+    notesContainer.appendChild(noteCreateDiv);
   };
 
-  noteCreateDiv(addNotes);
-  titleText.value = "";
-  noteForm.value = "";
+  // Rendera alla sparade anteckningar vid start
+  notes.forEach(createNotes);
 
-  localStorage.setItem("createNotes", JSON.stringify(notesContainer));
-  return { titleText, noteForm };
+  //Adds new note with html button, doesn't let user type nothing
+  saveButton.addEventListener("click", () => {
+    if (titleText.value.trim() === "" || noteForm.value.trim() === "") {
+      alert("Båda fälten måste fyllas i!");
+      return;
+    }
+
+    const newNote = addNotes(titleText.value, noteForm.value);
+    createNotes(newNote);
+
+    // Töm fälten efter sparande
+    titleText.value = "";
+    noteForm.value = "";
+  });
+
+  // Rensa alla anteckningar
+  clearButton.addEventListener("click", () => {
+    notes.length = 0; // Töm arrayen
+    localStorage.setItem("notes", JSON.stringify(notes)); // Uppdatera localStorage
+    notesContainer.innerHTML = ""; // Töm DOM
+  });
 });
-
-//notesContainer.push({ createNotes });
