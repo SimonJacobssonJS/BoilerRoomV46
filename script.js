@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveButton = document.getElementById("saveButton");
   const clearButton = document.getElementById("clearButton");
 
-  // Ladda tidigare anteckningar från localStorage
+  // Loads saved notes from previous localStorage
   const notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-  // Funktion för att skapa ett unikt ID
+  // creates random unik id
   const generateId = () => {
-    return "_" + Math.random().toString(36).slice(2, 11); // Skapar ett slumpmässigt unikt id
+    return "_" + Math.random().toString(36).slice(2, 11);
   };
 
   // Funktion för att lägga till en anteckning till listan
@@ -25,23 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return newNote;
   };
 
-  // Funktion för att ta bort en anteckning
+  // Function to delete notes
   const deleteNote = (id) => {
-    const index = notes.findIndex((note) => note.id === id); // Hitta index baserat på id
+    const index = notes.findIndex((note) => note.id === id); // find the note with idex id
     if (index !== -1) {
-      notes.splice(index, 1); // Ta bort anteckningen från arrayen
+      notes.splice(index, 1); // removes note from the array
       localStorage.setItem("notes", JSON.stringify(notes)); // Uppdatera localStorage
       renderNotes(); // Rendera om alla anteckningar
     }
   };
 
-  // Funktion för att rendera alla anteckningar
+  // Function to render notes
   const renderNotes = () => {
     notesContainer.innerHTML = ""; // Töm DOM
     notes.forEach((note) => createNotes(note));
   };
 
-  // Funktion för att skapa en anteckning i DOM
+  // function creates notes into DOM
   const createNotes = ({ id, title, note, timestamp }) => {
     const noteCreateDiv = document.createElement("div");
     noteCreateDiv.classList.add("note");
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const timestampDiv = document.createElement("div");
     timestampDiv.classList.add("timestamp");
-    timestampDiv.innerText = `Created on: ${timestamp}`;
+    timestampDiv.innerText = `skapad: ${timestamp}`;
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Ta bort";
