@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Funktion för att lägga till en anteckning till listan
   const addNotes = (title, note) => {
-    const newNote = { title, note };
+    const timestamp = new Date().toLocaleString();
+    const newNote = { title, note, timestamp };
     notes.push(newNote);
     localStorage.setItem("notes", JSON.stringify(notes));
 
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Funktion för att skapa en anteckning i DOM
-  const createNotes = ({ title, note }) => {
+  const createNotes = ({ title, note, timestamp }) => {
     const noteCreateDiv = document.createElement("div");
     noteCreateDiv.classList.add("note");
 
@@ -29,7 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const noteParagraph = document.createElement("p");
     noteParagraph.innerText = note;
 
-    noteCreateDiv.append(titleH2, noteParagraph);
+    const timestampDiv = document.createElement("div");
+    timestampDiv.classList.add("timestamp");
+    timestampDiv.innerText = `Created on: ${timestamp}`;
+
+    noteCreateDiv.append(titleH2, noteParagraph, timestampDiv);
     notesContainer.appendChild(noteCreateDiv);
   };
 
