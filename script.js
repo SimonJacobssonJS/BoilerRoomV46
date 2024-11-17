@@ -9,20 +9,43 @@ document.addEventListener("DOMContentLoaded", () => {
   // Ladda tidigare anteckningar från localStorage
   const notes = JSON.parse(localStorage.getItem("notes")) || [];
 
+  // Funktion för att skapa ett unikt ID
+  const generateId = () => {
+    return "_" + Math.random().toString(36).slice(2, 11); // Skapar ett slumpmässigt unikt id
+  };
+
   // Funktion för att lägga till en anteckning till listan
   const addNotes = (title, note) => {
     const timestamp = new Date().toLocaleString();
-    const newNote = { title, note, timestamp };
+    const id = generateId(); // Generera ett unikt id
+    const newNote = { id, title, note, timestamp };
     notes.push(newNote);
     localStorage.setItem("notes", JSON.stringify(notes));
 
     return newNote;
   };
 
+  // Funktion för att ta bort en anteckning
+  const deleteNote = (id) => {
+    const index = notes.findIndex((note) => note.id === id); // Hitta index baserat på id
+    if (index !== -1) {
+      notes.splice(index, 1); // Ta bort anteckningen från arrayen
+      localStorage.setItem("notes", JSON.stringify(notes)); // Uppdatera localStorage
+      renderNotes(); // Rendera om alla anteckningar
+    }
+  };
+
+  // Funktion för att rendera alla anteckningar
+  const renderNotes = () => {
+    notesContainer.innerHTML = ""; // Töm DOM
+    notes.forEach((note) => createNotes(note));
+  };
+
   // Funktion för att skapa en anteckning i DOM
-  const createNotes = ({ title, note, timestamp }) => {
+  const createNotes = ({ id, title, note, timestamp }) => {
     const noteCreateDiv = document.createElement("div");
     noteCreateDiv.classList.add("note");
+    noteCreateDiv.setAttribute("data-id", id); // makes noteCreateDiv an attribbute with id
 
     const titleH2 = document.createElement("h2");
     titleH2.innerText = title;
@@ -34,14 +57,23 @@ document.addEventListener("DOMContentLoaded", () => {
     timestampDiv.classList.add("timestamp");
     timestampDiv.innerText = `Created on: ${timestamp}`;
 
-    noteCreateDiv.append(titleH2, noteParagraph, timestampDiv);
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Ta bort";
+    deleteButton.classList.add("delete-button");
+    deleteButton.addEventListener("click", () => {
+      deleteNote(id); // calls delete function with id
+    });
+
+    noteCreateDiv.append(titleH2, noteParagraph, timestampDiv, deleteButton);
     notesContainer.appendChild(noteCreateDiv);
+
+    console.log(`ID: ${id}`);
   };
 
   // Rendera alla sparade anteckningar vid start
-  notes.forEach(createNotes);
+  renderNotes();
 
-  //Adds new note with html button, doesn't let user type nothing
+  // listens to the saveButton click and runs function
   saveButton.addEventListener("click", () => {
     if (titleText.value.trim() === "" || noteForm.value.trim() === "") {
       alert("Båda fälten måste fyllas i!");
@@ -49,17 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const newNote = addNotes(titleText.value, noteForm.value);
-    createNotes(newNote);
+    renderNotes();
 
-    // Töm fälten efter sparande
+    //clears the field when note is added
     titleText.value = "";
     noteForm.value = "";
   });
 
-  // Rensa alla anteckningar
+  // Deletes all notes
   clearButton.addEventListener("click", () => {
-    notes.length = 0; // Töm arrayen
-    localStorage.setItem("notes", JSON.stringify(notes)); // Uppdatera localStorage
-    notesContainer.innerHTML = ""; // Töm DOM
+    notes.length = 0;
+    localStorage.setItem("notes", JSON.stringify(notes)); // Uppdates localStorage
+    notesContainer.innerHTML = ""; // clears DOM
   });
 });
