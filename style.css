@@ -85,3 +85,13 @@ button:hover {
   font-size: 1rem;
   color: #555;
 }
+
+.note.completed h2,
+.note.completed p {
+  text-decoration: line-through;
+  color: grey;
+}
+
+.note.completed {
+  opacity: 0.6;
+}
